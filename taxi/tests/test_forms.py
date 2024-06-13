@@ -1,8 +1,8 @@
 from taxi.forms import (
     DriverCreationForm,
-    DriverSearchForm,
-    CarSearchForm,
-    ManufacturerSearchForm,
+    DriverUsernameSearchForm,
+    CarModelSearchForm,
+    ManufacturerNameSearchForm,
 )
 from django.test import TestCase
 
@@ -48,36 +48,36 @@ class SearchFormsTests(TestCase):
 
     def test_driver_search_form_valid(self):
         form_data = {"username": "testuser"}
-        form = DriverSearchForm(data=form_data)
+        form = DriverUsernameSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["username"], "testuser")
 
     def test_driver_search_form_empty(self):
         form_data = {"username": ""}
-        form = DriverSearchForm(data=form_data)
+        form = DriverUsernameSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["username"], "")
 
     def test_car_search_form_valid(self):
         form_data = {"model": "testmodel"}
-        form = CarSearchForm(data=form_data)
+        form = CarModelSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["model"], "testmodel")
 
     def test_car_search_form_empty(self):
         form_data = {"model": ""}
-        form = CarSearchForm(data=form_data)
+        form = CarModelSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["model"], "")
 
     def test_manufacturer_search_form_valid(self):
         form_data = {"name": "testname"}
-        form = ManufacturerSearchForm(data=form_data)
+        form = ManufacturerNameSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["name"], "testname")
 
     def test_manufacturer_search_form_empty(self):
         form_data = {"name": ""}
-        form = ManufacturerSearchForm(data=form_data)
+        form = ManufacturerNameSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["name"], "")
