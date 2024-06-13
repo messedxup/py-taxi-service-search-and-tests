@@ -27,11 +27,14 @@ class ModelsTest(TestCase):
         )
 
     def test_driver_create_with_licence_number(self):
-        driver = get_user_model().objects.create_user(
-            username="test",
-            license_number="XYZ123456",
-            password="testpassword"
-        )
-        self.assertEqual(driver.username, "test")
-        self.assertEqual(driver.license_number, "XYZ123456")
-        self.assertTrue(driver.check_password("testpassword"))
+        driver_data = {
+            "username": "test",
+            "license_number": "XYZ123456",
+            "password": "testpassword"
+        }
+        
+        driver = get_user_model().objects.create_user(**driver_data)
+        
+        self.assertEqual(driver.username, driver_data["username"])
+        self.assertEqual(driver.license_number, driver_data["license_number"])
+        self.assertTrue(driver.check_password(driver_data["password"]))
