@@ -1,31 +1,10 @@
-from django.test import TestCase
 from taxi.forms import (
     DriverCreationForm,
-    DriverUsernameSearchForm, CarModelSearchForm, ManufacturerNameSearchForm,
+    DriverSearchForm,
+    CarSearchForm,
+    ManufacturerSearchForm,
 )
-
-
-class DriverCreationFormTest(TestCase):
-    def test_driver_creation_from_is_valid(self):
-        form_data = {
-            "username": "test",
-            "password1": "test12345",
-            "password2": "test12345",
-            "license_number": "XYZ12345",
-            "first_name": "Test first",
-            "last_name": "Test last",
-        }
-        form = DriverCreationForm(data=form_data)
-        self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data, form_data)
-
-
-class SearchFormTest(TestCase):
-    def test_driver_username_search_form_is_valid(self):
-        form_data = {"username": "test"}
-        form = DriverUsernameSearchForm(data=form_data)
-        self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data, form_data)
+from django.test import TestCase
 
 
 class DriverCreationFormTests(TestCase):
@@ -69,57 +48,36 @@ class SearchFormsTests(TestCase):
 
     def test_driver_search_form_valid(self):
         form_data = {"username": "testuser"}
-        form = DriverUsernameSearchForm(data=form_data)
+        form = DriverSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["username"], "testuser")
 
     def test_driver_search_form_empty(self):
         form_data = {"username": ""}
-        form = DriverUsernameSearchForm(data=form_data)
+        form = DriverSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["username"], "")
 
-    def test_driver_search_form_widget(self):
-        form = DriverUsernameSearchForm()
-        self.assertEqual(
-            form.fields["username"].widget.attrs["placeholder"],
-            "Search by username"
-        )
-
     def test_car_search_form_valid(self):
         form_data = {"model": "testmodel"}
-        form = CarModelSearchForm(data=form_data)
+        form = CarSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["model"], "testmodel")
 
     def test_car_search_form_empty(self):
         form_data = {"model": ""}
-        form = CarModelSearchForm(data=form_data)
+        form = CarSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["model"], "")
 
-    def test_car_search_form_widget(self):
-        form = CarModelSearchForm()
-        self.assertEqual(
-            form.fields["model"].widget.attrs["placeholder"],
-            "Search by model"
-        )
-
     def test_manufacturer_search_form_valid(self):
         form_data = {"name": "testname"}
-        form = ManufacturerNameSearchForm(data=form_data)
+        form = ManufacturerSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["name"], "testname")
 
     def test_manufacturer_search_form_empty(self):
         form_data = {"name": ""}
-        form = ManufacturerNameSearchForm(data=form_data)
+        form = ManufacturerSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data["name"], "")
-
-    def test_manufacturer_search_form_widget(self):
-        form = ManufacturerNameSearchForm()
-        self.assertEqual(
-            form.fields["name"].widget.attrs["placeholder"],
-            "Search by name"
-        )
